@@ -59,3 +59,9 @@ form input {
 .miss {
     background: url("/img/miss.png") no-repeat center center;
 }
+
+.jsCode {
+    height: 850px;
+    width: 1000px;
+    
+}
