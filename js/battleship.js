@@ -79,12 +79,20 @@ var model = {
 
 // Implementing a controller
 var controller = {
-    guesses: 0,
+	guesses: 0,
 
-    processGuess: function(guess) {
-
-    }
+	processGuess: function(guess) {
+		var location = parseGuess(guess);
+		if (location) {
+			this.guesses++;
+			var hit = model.fire(location);
+			if (hit && model.shipsSunk === model.numShips) {
+					view.displayMessage("You sank all my battleships, in " + this.guesses + " guesses");
+			}
+		}
+	}
 }
+
 
 function parseGuess(guess) {
     var alphabet = ["A", "B", "C", "D", "E", "F", "G"];
@@ -96,7 +104,7 @@ function parseGuess(guess) {
         var column = guess.charAt(1);
         if(isNaN(row) || isNaN(column)) {
             alert("Oops, that isn't on the board.");
-        } else if (row < 0 || row >= mobel.boardSize || column < 0 || column >= model.boardSize) {
+        } else if (row < 0 || row >= model.boardSize || column < 0 || column >= model.boardSize) {
             alert("Oops, that's off the board!");
         } else {
             return row + column;
@@ -104,3 +112,10 @@ function parseGuess(guess) {
     }
     return null;
 }
+
+function init() {
+    var fireButton = document.getElementById("fireButton");
+    fireButton.onclick= handleFireButton;
+}
+
+
